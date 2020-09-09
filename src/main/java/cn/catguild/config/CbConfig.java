@@ -1,7 +1,11 @@
 package cn.catguild.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.auditing.CurrentDateTimeProvider;
+import org.springframework.data.auditing.DateTimeProvider;
 import org.springframework.data.couchbase.config.AbstractCouchbaseConfiguration;
+import org.springframework.data.couchbase.repository.auditing.EnableCouchbaseAuditing;
 
 /**
  * <p>
@@ -17,6 +21,7 @@ import org.springframework.data.couchbase.config.AbstractCouchbaseConfiguration;
  * @modified zhi.liu
  */
 @Configuration
+@EnableCouchbaseAuditing(auditorAwareRef = "testAuditorAware",dateTimeProviderRef="currentDateTimeProvider")
 public class CbConfig extends AbstractCouchbaseConfiguration {
 	/**
 	 * The connection string which allows the SDK to connect to the cluster.
@@ -27,7 +32,8 @@ public class CbConfig extends AbstractCouchbaseConfiguration {
 	 */
 	@Override
 	public String getConnectionString() {
-		return "couchbase://192.168.134.132";
+		//return "couchbase://192.168.134.132";
+		return "couchbase://192.168.192.137";
 	}
 
 	/**
@@ -51,7 +57,26 @@ public class CbConfig extends AbstractCouchbaseConfiguration {
 	 */
 	@Override
 	public String getBucketName() {
-		return "travel-sample";
+		return "cat-guild";
 	}
 
+	@Override
+	protected boolean autoIndexCreation() {
+		return true;
+	}
+
+	/**
+	 * this creates the auditor aware bean that will feed the annotations
+	 *
+	 * @return
+	 */
+	@Bean
+	public NaiveAuditorAware testAuditorAware() {
+		return new NaiveAuditorAware();
+	}
+
+	@Bean
+	public DateTimeProvider currentDateTimeProvider(){
+		return CurrentDateTimeProvider.INSTANCE;
+	}
 }

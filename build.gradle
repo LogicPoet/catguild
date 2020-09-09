@@ -23,10 +23,11 @@ repositories {
 
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-webflux')
-    implementation('org.springframework.boot:spring-boot-starter-security')
+//    implementation('org.springframework.boot:spring-boot-starter-security')
     implementation('org.springframework.boot:spring-boot-starter-data-couchbase-reactive')
 
-    compileOnly ('org.projectlombok:lombok')
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor  'org.projectlombok:lombok'   // 解决lombok在编译器不生成对应的字节码 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
