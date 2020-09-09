@@ -23,11 +23,18 @@ repositories {
 
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-webflux')
-//    implementation('org.springframework.boot:spring-boot-starter-security')
+    implementation('org.springframework.boot:spring-boot-starter-security')
     implementation('org.springframework.boot:spring-boot-starter-data-couchbase-reactive')
 
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    implementation 'javax.validation:validation-api'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
+    implementation 'com.google.guava:guava:29.0-jre'
+    implementation 'cn.hutool:hutool-all:5.4.1'
+
     compileOnly 'org.projectlombok:lombok'
-    annotationProcessor  'org.projectlombok:lombok'   // 解决lombok在编译器不生成对应的字节码 
+    annotationProcessor  'org.projectlombok:lombok'   // 解决lombok在编译器不生成对应的字节码
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

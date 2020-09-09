@@ -32,8 +32,8 @@ public class CbConfig extends AbstractCouchbaseConfiguration {
 	 */
 	@Override
 	public String getConnectionString() {
-		//return "couchbase://192.168.134.132";
-		return "couchbase://192.168.192.137";
+		return "couchbase://192.168.134.132";
+//		return "couchbase://192.168.192.137";
 	}
 
 	/**

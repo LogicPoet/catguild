@@ -1,4 +1,4 @@
-package cn.catguild.domain;
+package cn.catguild.domain.document;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,9 +11,6 @@ import org.springframework.data.couchbase.core.mapping.Field;
 import org.springframework.data.couchbase.core.mapping.id.GeneratedValue;
 import org.springframework.data.couchbase.core.mapping.id.IdAttribute;
 import org.springframework.data.couchbase.core.mapping.id.IdPrefix;
-import org.springframework.data.couchbase.core.query.N1qlPrimaryIndexed;
-import org.springframework.data.couchbase.core.query.N1qlSecondaryIndexed;
-import org.springframework.data.couchbase.core.query.ViewIndexed;
 import org.springframework.stereotype.Indexed;
 
 import java.time.LocalDateTime;

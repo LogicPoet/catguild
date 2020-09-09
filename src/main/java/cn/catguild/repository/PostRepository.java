@@ -1,18 +1,13 @@
 package cn.catguild.repository;
 
-import cn.catguild.domain.Post;
-import com.couchbase.client.java.Bucket;
-import org.springframework.data.couchbase.core.index.CompositeQueryIndex;
-import org.springframework.data.couchbase.core.index.CompositeQueryIndexes;
-import org.springframework.data.couchbase.core.index.QueryIndexed;
-import org.springframework.data.couchbase.core.query.N1qlPrimaryIndexed;
-import org.springframework.data.couchbase.core.query.ViewIndexed;
+import cn.catguild.domain.document.Post;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
  * <p>
- *
+ *  创建索引语句，需要先建立索引，否则会在执行删除时报错，找不到可用的索引
+ *	CREATE INDEX `index-name` ON `buckname`(`_class`)
  * </p>
  *
  * @author zhi.liu

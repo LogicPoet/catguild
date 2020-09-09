@@ -1,12 +1,10 @@
 package cn.catguild.repository;
 
 import cn.catguild.ApplicationTest;
-import cn.catguild.domain.Post;
+import cn.catguild.domain.document.Post;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import reactor.core.publisher.Mono;
-
-import java.util.Date;
 
 public class PostRepositoryTest extends ApplicationTest {
 
@@ -21,7 +19,7 @@ public class PostRepositoryTest extends ApplicationTest {
 	@Test
 	public void save(){
 		Post post = new Post();
-		post.setPostId("5");
+		post.setPostId("1");
 		Mono<Post> save = postRepository.save(post);
 		System.out.println(save.block());
 	}
