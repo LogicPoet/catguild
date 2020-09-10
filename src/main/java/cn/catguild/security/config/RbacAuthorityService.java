@@ -66,11 +66,11 @@ public class RbacAuthorityService {
             UserPrincipal principal = (UserPrincipal) userInfo;
             Long userId = principal.getId();
 
-            List<Role> roles = roleDao.selectByUserId(userId);
+            List<Role> roles = roleDao.selectByUserId(userId).collectList().block();
             List<Long> roleIds = roles.stream()
                     .map(Role::getId)
                     .collect(Collectors.toList());
-            List<Permission> permissions = permissionDao.selectByRoleIdList(roleIds);
+            List<Permission> permissions = permissionDao.selectByRoleIdList(roleIds).collectList().block();
 
             //获取资源，前后端分离，所以过滤页面权限，只保留按钮权限
             List<Permission> btnPerms = permissions.stream()

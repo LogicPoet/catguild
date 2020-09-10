@@ -2,7 +2,6 @@ package cn.catguild.security.repository;
 
 
 import cn.catguild.security.model.RolePermission;
-import cn.catguild.security.model.unionkey.RolePermissionKey;
 import org.springframework.data.couchbase.repository.ReactiveCouchbaseRepository;
 
 /**
@@ -18,5 +17,5 @@ import org.springframework.data.couchbase.repository.ReactiveCouchbaseRepository
  * @version: V1.0
  * @modified: yangkai.shen
  */
-public interface RolePermissionDao extends ReactiveCouchbaseRepository<RolePermission, RolePermissionKey>{
+public interface RolePermissionDao extends ReactiveCouchbaseRepository<RolePermission, Long>{
 }

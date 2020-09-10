@@ -2,7 +2,6 @@ package cn.catguild.security.repository;
 
 
 import cn.catguild.security.model.UserRole;
-import cn.catguild.security.model.unionkey.UserRoleKey;
 import org.springframework.data.couchbase.repository.ReactiveCouchbaseRepository;
 
 /**
@@ -18,6 +17,6 @@ import org.springframework.data.couchbase.repository.ReactiveCouchbaseRepository
  * @version: V1.0
  * @modified: yangkai.shen
  */
-public interface UserRoleDao extends ReactiveCouchbaseRepository<UserRole, UserRoleKey>{
+public interface UserRoleDao extends ReactiveCouchbaseRepository<UserRole, Long>{
 
 }

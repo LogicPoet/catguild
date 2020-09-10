@@ -1,14 +1,15 @@
-logging:
-  level:
-    org.springframework.security:
-      - debug
-      - info
-    org.springframework.web: error
-    org.hibernate.SQL: debug
-    org.hibernate.engine.QueryParameters: debug
-    org.hibernate.engine.query.HQLQueryPlan: debug
-    org.hibernate.type.descriptor.sql.BasicBinder: trace
-spring:
-  data:
-    couchbase:
-      auto-index: true
+jwt:
+  config:
+    key: xkcoding
+    ttl: 600000
+    remember: 604800000
+custom:
+  config:
+    ignores:
+      # 需要过滤的 post 请求
+      post:
+        - "/api/auth/login"
+        - "/api/auth/logout"
+      # 需要过滤的请求，不限方法
+      pattern:
+        - "/test/*"

@@ -31,10 +31,16 @@
     </appender>
 
     <!-- 日志输出级别 -->
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="STDOUT" />
     </root>
 
-    <logger name="com.couchbase.request" level="DEBUG"/>
+    <logger name="org.springframework.web" level="ERROR"/>
+    <logger name="org.springframework.security" level="DEBUG"/>
+
+    <logger name="com.couchbase.request" level="TRACE"/>
+    <logger name="org.springframework.data.couchbase.repository" level="TRACE"/>
+
+    <logger name="cn.catguild" level="DEBUG"/>
 
 </configuration>

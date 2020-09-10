@@ -1,9 +1,9 @@
 package cn.catguild.security.model;
 
-import cn.catguild.security.model.unionkey.RolePermissionKey;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
+import org.springframework.data.couchbase.core.mapping.Field;
 
 /**
  * <p>
@@ -25,5 +25,17 @@ public class RolePermission {
      * 主键
      */
    	@Id
-    private RolePermissionKey id;
+    private Long id;
+
+	/**
+	 * 角色id
+	 */
+	@Field
+	private Long roleId;
+
+	/**
+	 * 权限id
+	 */
+	@Field
+	private Long permissionId;
 }
