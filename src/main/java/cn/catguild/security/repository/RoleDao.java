@@ -1,6 +1,7 @@
 package cn.catguild.security.repository;
 
 import cn.catguild.security.model.Role;
+import org.reactivestreams.Publisher;
 import org.springframework.data.couchbase.repository.Query;
 import org.springframework.data.couchbase.repository.ReactiveCouchbaseRepository;
 import org.springframework.data.repository.query.Param;
@@ -29,8 +30,10 @@ public interface RoleDao extends ReactiveCouchbaseRepository<Role, Long>{
      * @return 角色列表
      */
     @Query("#{#n1ql.selectEntity} WHERE #{#n1ql.filter}" +
-		"AND sec_user.id = sec_user_role.user_id " +
-		"AND sec_role.id = sec_user_role.role_id " +
-		"AND sec_user.id = :userId")
+		"AND userId = $1 ")
     Flux<Role> selectByUserId(@Param("userId") Long userId);
+
+	@Query("#{#n1ql.selectEntity} WHERE #{#n1ql.filter}" +
+		"AND userId = $1 ")
+	Flux<Role> selectByUserId(@Param("userId") Publisher<Long> userId);
 }

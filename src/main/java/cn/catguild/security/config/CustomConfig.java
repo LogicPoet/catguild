@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
  * @modified: yangkai.shen
  */
 @Data
-//@ConfigurationProperties(prefix = "custom.config")
+@ConfigurationProperties(prefix = "custom.config")
 @Configuration
 public class CustomConfig {
     /**

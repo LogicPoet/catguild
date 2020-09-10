@@ -7,6 +7,7 @@ import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -32,6 +33,12 @@ public class UserDaoTest extends ApplicationTest {
 	public void selectAllCountries() {
 		Flux<User> allById = userDao.findAllCountries();
 		log.info("【userList】= {}", allById.collectList().block());
+	}
+
+	@Test
+	public void findByUsernameOrEmailOrPhone() {
+		Mono<User> allById = userDao.findByUsernameOrEmailOrPhone("admin","admin","admin");
+		log.info("【userList】= {}", allById.block());
 	}
 
     @Test
