@@ -10,6 +10,9 @@ import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
+import org.springframework.boot.autoconfigure.security.reactive.StaticResourceRequest;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -19,6 +22,9 @@ import org.springframework.security.core.userdetails.MapReactiveUserDetailsServi
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.security.web.server.util.matcher.PathPatternParserServerWebExchangeMatcher;
+import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatcher;
+import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatchers;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
@@ -26,6 +32,8 @@ import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
+import java.util.Iterator;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -53,6 +61,8 @@ public class JwtAuthenticationFilter implements WebFilter {
 	@Autowired
 	private CustomConfig customConfig;
 
+
+
 	/**
 	 * Process the Web request and (optionally) delegate to the next
 	 * {@code WebFilter} through the given {@link WebFilterChain}.
@@ -65,7 +75,8 @@ public class JwtAuthenticationFilter implements WebFilter {
 	public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
 		ServerHttpRequest request = exchange.getRequest();
 
-		if (checkIgnores(request)) {
+		// 检查放行路径
+		if (checkIgnores(exchange)) {
 			return chain.filter(exchange);
 		}
 
@@ -77,6 +88,7 @@ public class JwtAuthenticationFilter implements WebFilter {
 
 				UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+
 				//authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				SecurityContextHolder.getContext()
 					.setAuthentication(authentication);
@@ -84,20 +96,21 @@ public class JwtAuthenticationFilter implements WebFilter {
 			} catch (SecurityException e) {
 //				ResponseUtil.renderJson(exchange.getResponse(), e);
 			}
-		} else {
-//			ResponseUtil.renderJson(exchange.getResponse(), Status.UNAUTHORIZED, null);
 		}
+		//else {
+//			ResponseUtil.renderJson(exchange.getResponse(), Status.UNAUTHORIZED, null);
+//		}
 		return chain.filter(exchange);
 	}
 
 	/**
 	 * 请求是否不需要进行权限拦截
 	 *
-	 * @param request 当前请求
+	 * @param exchange 当前请求
 	 * @return true - 忽略，false - 不忽略
 	 */
-	private boolean checkIgnores(ServerHttpRequest request) {
-		HttpMethod httpMethod = request.getMethod();
+	private boolean checkIgnores(ServerWebExchange exchange) {
+		HttpMethod httpMethod = exchange.getRequest().getMethod();
 
 		if (ObjectUtil.isNull(httpMethod)) {
 			httpMethod = HttpMethod.GET;
@@ -147,10 +160,10 @@ public class JwtAuthenticationFilter implements WebFilter {
 
 		if (CollUtil.isNotEmpty(ignores)) {
 			for (String ignore : ignores) {
-//				AntPathRequestMatcher matcher = new AntPathRequestMatcher(ignore, method);
-//				if (matcher.matches(request)) {
-//					return true;
-//				}
+				PathPatternParserServerWebExchangeMatcher pathPatternMatcher =
+					new PathPatternParserServerWebExchangeMatcher(ignore, httpMethod);
+				return Objects.requireNonNull(pathPatternMatcher.matches(exchange).block()).isMatch();
+				//AntPathRequestMatcher
 			}
 		}
 
