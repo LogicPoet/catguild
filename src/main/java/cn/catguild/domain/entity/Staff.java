@@ -1,8 +1,10 @@
 package cn.catguild.domain.entity;
 
 import cn.catguild.domain.base.BaseEntity;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -23,6 +25,9 @@ public class Staff extends BaseEntity {
 
 	// 工号（后台登陆凭证）
 	private String jobNumber;
+
+	// 密码
+	private String password;
 
 	// 姓名
 	private String name;
