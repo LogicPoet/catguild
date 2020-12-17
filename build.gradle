@@ -28,7 +28,11 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-webflux')
     implementation('org.springframework.boot:spring-boot-starter-data-mongodb-reactive')
     implementation('org.projectlombok:lombok')
+    compile 'cn.hutool:hutool-all:5.5.3'
+    annotationProcessor('org.projectlombok:lombok')
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.2'
+//    testCompileOnly 'org.projectlombok:lombok:1.18.2'
 }

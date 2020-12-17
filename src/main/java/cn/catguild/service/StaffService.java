@@ -4,6 +4,9 @@ import cn.catguild.domain.entity.Staff;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * 职员服务层接口定义
  *
@@ -23,10 +26,10 @@ public interface StaffService {
 	/**
 	 * 删除职员信息
 	 *
-	 * @param staffId 职员id
+	 * @param staffIds 职员id
 	 * @return 无返回值
 	 */
-	Mono<Void> remove(Integer staffId);
+	Mono<Void> remove(Collection<String> staffIds);
 
 	/**
 	 * 分页获取职员信息列表

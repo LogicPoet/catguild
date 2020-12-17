@@ -3,7 +3,8 @@ spring:
     mongodb:
       host: localhost
       port: 27017
-      database: article_db
+      database: catguild_db
 logging:
   level:
-    org.springframework.data.mongodb.core: debug
+    org.springframework.data: debug
+    cn.catguild: debug

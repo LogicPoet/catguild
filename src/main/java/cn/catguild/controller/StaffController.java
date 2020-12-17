@@ -2,11 +2,15 @@ package cn.catguild.controller;
 
 import cn.catguild.domain.entity.Staff;
 import cn.catguild.service.StaffService;
+import cn.hutool.core.util.StrUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  *
@@ -39,7 +43,9 @@ public class StaffController {
 	// 批量删除职员
 	@DeleteMapping("/{ids}")
 	public Mono<Void> remove(@PathVariable String ids){
-		return staffService.remove(1);
+		String[] split = ids.split(",");
+		List<String> id = List.of(split);
+		return staffService.remove(id);
 	}
 
 }

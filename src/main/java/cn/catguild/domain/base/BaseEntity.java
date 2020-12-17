@@ -8,7 +8,7 @@ import lombok.Data;
  * @author liu.zhi
  * @date 2020/12/11 17:41
  */
-//@Data
+@Data
 public class BaseEntity {
 
 	// 创建时间戳
@@ -23,35 +23,4 @@ public class BaseEntity {
 	// 修改人
 	private Integer updateStaff;
 
-	public Long getCrateTime() {
-		return crateTime;
-	}
-
-	public void setCrateTime(Long crateTime) {
-		this.crateTime = crateTime;
-	}
-
-	public Long getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Long updateTime) {
-		this.updateTime = updateTime;
-	}
-
-	public Integer getCrateStaff() {
-		return crateStaff;
-	}
-
-	public void setCrateStaff(Integer crateStaff) {
-		this.crateStaff = crateStaff;
-	}
-
-	public Integer getUpdateStaff() {
-		return updateStaff;
-	}
-
-	public void setUpdateStaff(Integer updateStaff) {
-		this.updateStaff = updateStaff;
-	}
 }

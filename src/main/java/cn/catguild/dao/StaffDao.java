@@ -9,6 +9,6 @@ import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
  * @author liu.zhi
  * @date 2020/12/11 17:49
  */
-public interface StaffDao extends ReactiveMongoRepository<Staff, Integer> {
+public interface StaffDao extends ReactiveMongoRepository<Staff, String> {
 
 }
