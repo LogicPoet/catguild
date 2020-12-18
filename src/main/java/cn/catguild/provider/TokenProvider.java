@@ -1,6 +1,7 @@
-package cn.catguild.service.impl;
+package cn.catguild.provider;
 
 import cn.catguild.service.TokenGranter;
+import cn.catguild.service.impl.PasswordGranter;
 import cn.hutool.extra.spring.SpringUtil;
 import lombok.AllArgsConstructor;
 
@@ -16,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @AllArgsConstructor
 public class TokenProvider {
 
-	private static Map<String,TokenGranter> granterMap = new ConcurrentHashMap<>();
+	private static final Map<String,TokenGranter> granterMap = new ConcurrentHashMap<>();
 
 	static {
 		granterMap.put("password", SpringUtil.getBean(PasswordGranter.class));

@@ -46,6 +46,10 @@ public class JwtUtil {
 
 	private static final String BASE64_SECURITY = Base64.encode(SIGN_KEY);
 
+	private static final String BEARER = "bearer";
+
+	public static final Integer AUTH_LENGTH = 7;
+
 	private JwtUtil(){}
 
 	/**
@@ -80,6 +84,23 @@ public class JwtUtil {
 		builder.setExpiration(exp).setNotBefore(now);
 
 		return builder.compact();
+	}
+
+	/**
+	 * 获取token串
+	 *
+	 * @param auth token
+	 * @return String
+	 */
+	public static String getToken(String auth) {
+		if ((auth != null) && (auth.length() > AUTH_LENGTH)) {
+			String headStr = auth.substring(0, 6).toLowerCase();
+			if (headStr.compareTo(BEARER) == 0) {
+				auth = auth.substring(7);
+				return auth;
+			}
+		}
+		return null;
 	}
 
 	/**

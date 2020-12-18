@@ -1,9 +1,7 @@
 package cn.catguild.controller;
 
 import cn.catguild.common.api.R;
-import cn.catguild.service.TokenGranter;
-import cn.catguild.service.impl.PasswordGranter;
-import cn.catguild.service.impl.TokenProvider;
+import cn.catguild.provider.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.PostMapping;
