@@ -1,11 +1,15 @@
 package cn.catguild.utils;
 
 import cn.hutool.core.codec.Base64;
-import cn.hutool.crypto.SecureUtil;
-import cn.hutool.crypto.digest.HMac;
-import cn.hutool.json.JSON;
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
+import javax.crypto.spec.SecretKeySpec;
+import java.security.Key;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * jwt令牌生成工具
@@ -32,37 +36,66 @@ import cn.hutool.json.JSONUtil;
  */
 public class JwtUtil {
 
+	private static final SignatureAlgorithm SIG_ALG = SignatureAlgorithm.HS256;
+
+	//两个黄鹂鸣翠柳，
+	//一行白鹭上青天。
+	//窗含西岭千秋雪，
+	//门泊东吴万里船。
+	private static final String SIGN_KEY = "lghlmcl-yhblsqt-chxlqqx-mbdwwlc-asdjoasjdojsapojd";
+
+	private static final String BASE64_SECURITY = Base64.encode(SIGN_KEY);
+
 	private JwtUtil(){}
 
-	public static String createJwt(String username){
-		// Header { "type": "JWT" , "alg": "RSA" }
-		String headerStr = "{ \"type\": \"JWT\" , \"alg\": \"hmacMd5\" }";
-		String headerB64 = Base64.encode(headerStr);
+	/**
+	 * 创建令牌
+	 *
+	 * @param user      user 用户信息
+	 * @param issuer    issuer 令牌签发方
+	 * @param audience  audience 令牌接受方
+	 * @return jwt
+	 */
+	public static String createJWT(Map<String, String> user, String issuer, String audience) {
+		long nowMillis = System.currentTimeMillis();
+		Date now = new Date(nowMillis);
 
-		// payload
-		String payload = "{ \"sub\": \"1234567\" , \"name\": \"李宁\" }";
-		String payloadB64 = Base64.encode(payload);
+		//生成签名密钥
+		byte[] apiKeySecretBytes = Base64.decode(BASE64_SECURITY);
+		Key signingKey = new SecretKeySpec(apiKeySecretBytes, SIG_ALG.getJcaName());
 
-		// Signature
-		String s = SecureUtil.md5(headerB64 + "." + payloadB64);
-		String signature = Base64.encode(s);
-		return headerB64+"."+payloadB64+"."+signature;
+		//添加构成JWT的类
+		JwtBuilder builder = Jwts.builder().setHeaderParam("typ", "JWT")
+			.setIssuer(issuer)
+			.setAudience(audience)
+			.signWith(signingKey,SIG_ALG);
+
+		//设置JWT参数
+		user.forEach(builder::claim);
+
+		//添加Token过期时间 24 * 3600 = 86400
+		long expireMillis = 86_400;
+		long expMillis = nowMillis + expireMillis;
+		Date exp = new Date(expMillis);
+		builder.setExpiration(exp).setNotBefore(now);
+
+		return builder.compact();
 	}
 
-	public static void main(String[] args) {
-		// Header { "type": "JWT" , "alg": "RSA" }
-		String headerStr = "{ \"type\": \"JWT\" , \"alg\": \"hmacMd5\" }";
-		String headerB64 = Base64.encode(headerStr);
-
-		// payload
-		String payload = "{ \"sub\": \"1234567\" , \"name\": \"李宁\" }";
-		String payloadB64 = Base64.encode(payload);
-
-		// Signature
-		String s = SecureUtil.md5(headerB64 + "." + payloadB64);
-		String signature = Base64.encode(s);
-		String jwt =  headerB64+"."+payloadB64+"."+signature;
-
-		System.out.println(jwt);
+	/**
+	 * 解析jsonWebToken
+	 *
+	 * @param jsonWebToken token串
+	 * @return Claims
+	 */
+	public static Claims parseJWT(String jsonWebToken) {
+		try {
+			return Jwts.parserBuilder()
+				.setSigningKey(Base64.decode(BASE64_SECURITY))
+				.build()
+				.parseClaimsJws(jsonWebToken).getBody();
+		} catch (Exception ex) {
+			return null;
+		}
 	}
 }

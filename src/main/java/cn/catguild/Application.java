@@ -2,7 +2,10 @@ package cn.catguild;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScans;
 import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
+import org.springframework.stereotype.Component;
 
 /**
  * <p>
@@ -17,7 +20,7 @@ import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRep
  * @copyright Copyright (c) 2020
  * @modified zhi.liu
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"cn.catguild","cn.hutool.extra.spring"})
 @EnableReactiveMongoRepositories
 public class Application {
     public static void main(String[] args) {

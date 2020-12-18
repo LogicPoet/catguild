@@ -1,8 +1,8 @@
 package cn.catguild.service.impl;
 
-import cn.catguild.dao.StaffDao;
 import cn.catguild.service.TokenGranter;
-import org.springframework.stereotype.Component;
+import cn.hutool.extra.spring.SpringUtil;
+import lombok.AllArgsConstructor;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,16 +13,13 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author liu.zhi
  * @date 2020/12/17 16:55
  */
-@Component
+@AllArgsConstructor
 public class TokenProvider {
 
-
-
-	private static final Map<String,TokenGranter> granterMap = new ConcurrentHashMap<>();
+	private static Map<String,TokenGranter> granterMap = new ConcurrentHashMap<>();
 
 	static {
-		//TokenGranter passwordGranter = new PasswordGranter(staffDao);
-		//granterMap.put("password",passwordGranter);
+		granterMap.put("password", SpringUtil.getBean(PasswordGranter.class));
 	}
 
 	/**
@@ -33,8 +30,7 @@ public class TokenProvider {
 	 */
 	public static String provider(Map<String,String> parameter){
 		String key = parameter.get("grant_type");
-		TokenGranter tokenGranter = granterMap.get(key);
-		return tokenGranter.getToken(parameter);
+		return granterMap.get(key).getToken(parameter);
 	}
 
 }
