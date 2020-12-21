@@ -57,9 +57,9 @@ public class ResponseProvider {
 	 * @return
 	 */
 	public static Map<String, Object> response(int status, String message) {
-		Map<String, Object> map = new HashMap<>(16);
+		Map<String, Object> map = new HashMap<>(3);
 		map.put("code", status);
-		map.put("message", message);
+		map.put("msg", message);
 		map.put("data", null);
 		return map;
 	}

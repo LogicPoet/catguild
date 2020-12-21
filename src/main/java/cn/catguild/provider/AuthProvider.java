@@ -15,7 +15,7 @@ public class AuthProvider {
 
 	public static String AUTH_KEY = "authorization";
 
-	private static List<String> defaultSkipUrl = new ArrayList<>();
+	private static final List<String> defaultSkipUrl = new ArrayList<>();
 
 	static {
 		defaultSkipUrl.add("/auth/login");

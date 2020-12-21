@@ -1,5 +1,7 @@
 package cn.catguild.service;
 
+import reactor.core.publisher.Mono;
+
 import java.util.Map;
 
 /**
@@ -15,6 +17,6 @@ public interface TokenGranter {
 	 *
 	 * @return jwt 令牌
 	 */
-	String getToken(Map<String,String> parameter);
+	Mono<String> getToken(Map<String,String> parameter);
 
 }

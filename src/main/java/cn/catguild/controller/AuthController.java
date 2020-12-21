@@ -40,7 +40,7 @@ public class AuthController {
 		if (!parameter.containsKey("grant_type")){
 			return Mono.just("缺失参数: grant_type").map(R::data);
 		}
-		return Mono.just(TokenProvider.provider(parameter)).map(R::data);
+		return TokenProvider.provider(parameter).map(R::data);
 	}
 
 }

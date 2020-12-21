@@ -9,11 +9,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest
 public class ApplicationTest {
 
-    @Test
-    public void main() {
-        System.out.println("测试成功！！！");
-        System.out.println("测试成功！！！");
-        System.out.println("测试成功！！！");
-    }
+	@Test
+	public void main() {
+		System.out.println("测试成功！！！");
+		System.out.println("测试成功！！！");
+		System.out.println("测试成功！！！");
+	}
 
 }

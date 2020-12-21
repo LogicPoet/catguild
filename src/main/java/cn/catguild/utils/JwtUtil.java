@@ -5,9 +5,12 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import reactor.core.publisher.Mono;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.Map;
 
@@ -61,9 +64,6 @@ public class JwtUtil {
 	 * @return jwt
 	 */
 	public static String createJWT(Map<String, String> user, String issuer, String audience) {
-		long nowMillis = System.currentTimeMillis();
-		Date now = new Date(nowMillis);
-
 		//生成签名密钥
 		byte[] apiKeySecretBytes = Base64.decode(BASE64_SECURITY);
 		Key signingKey = new SecretKeySpec(apiKeySecretBytes, SIG_ALG.getJcaName());
@@ -78,10 +78,10 @@ public class JwtUtil {
 		user.forEach(builder::claim);
 
 		//添加Token过期时间 24 * 3600 = 86400
-		long expireMillis = 86_400;
-		long expMillis = nowMillis + expireMillis;
-		Date exp = new Date(expMillis);
-		builder.setExpiration(exp).setNotBefore(now);
+		LocalDateTime now = LocalDateTime.now();
+		long nowMilli = now.toInstant(ZoneOffset.of("+8")).toEpochMilli();
+		long expMilli = now.plusDays(1).toInstant(ZoneOffset.of("+8")).toEpochMilli();
+		builder.setExpiration(new Date(expMilli)).setNotBefore(new Date(nowMilli));
 
 		return builder.compact();
 	}

@@ -31,7 +31,8 @@ public class StaffControllerTest extends ApplicationTest {
 		for (int i = 0; i < 3; i++) {
 			Staff staff = new Staff();
 			staff.setName("白起");
-			staff.setJobNumber("000003");
+			staff.setJobNumber("000001");
+			staff.setPassword("asdfg");
 			staff.setAge((short) 30);
 			staff.setSex((short) 2);
 			staff.setCrateTime(Instant.now().toEpochMilli());

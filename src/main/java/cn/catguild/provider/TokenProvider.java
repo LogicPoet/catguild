@@ -4,6 +4,7 @@ import cn.catguild.service.TokenGranter;
 import cn.catguild.service.impl.PasswordGranter;
 import cn.hutool.extra.spring.SpringUtil;
 import lombok.AllArgsConstructor;
+import reactor.core.publisher.Mono;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -29,7 +30,7 @@ public class TokenProvider {
 	 * @param parameter 登陆参数
 	 * @return jwt 令牌
 	 */
-	public static String provider(Map<String,String> parameter){
+	public static Mono<String> provider(Map<String,String> parameter){
 		String key = parameter.get("grant_type");
 		return granterMap.get(key).getToken(parameter);
 	}
