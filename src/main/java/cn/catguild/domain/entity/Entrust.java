@@ -3,6 +3,7 @@ package cn.catguild.domain.entity;
 import cn.catguild.domain.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
