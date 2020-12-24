@@ -19,6 +19,7 @@ public class AuthProvider {
 
 	static {
 		defaultSkipUrl.add("/auth/login");
+		defaultSkipUrl.add("/user/info");
 	}
 
 	/**

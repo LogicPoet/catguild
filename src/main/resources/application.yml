@@ -5,6 +5,8 @@ spring:
       port: 27017
       database: catguild_db
 logging:
-  level:
-    org.springframework.data: debug
-    cn.catguild: debug
+  config: classpath:log/logback.xml
+#  level:
+#    org.springframework.data: debug
+#    cn.catguild: debug
+

@@ -4,6 +4,7 @@ import cn.catguild.dao.StaffDao;
 import cn.catguild.domain.entity.Staff;
 import cn.catguild.service.StaffService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -38,5 +39,16 @@ public class StaffServiceImpl implements StaffService {
 	@Override
 	public Flux<Staff> page() {
 		return staffDao.findAll();
+	}
+
+	/**
+	 * 根据职员id获取职员信息
+	 *
+	 * @param id 职员id
+	 * @return 职员信息
+	 */
+	@Override
+	public Mono<Staff> getOne(String id) {
+		return staffDao.findOne(Example.of(new Staff(){{setId(id);}}));
 	}
 }
