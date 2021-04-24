@@ -5,7 +5,7 @@ import cn.catguild.domain.entity.Entrust;
 import cn.catguild.domain.vo.EntrustQuery;
 import cn.catguild.domain.vo.EntrustSave;
 import cn.catguild.service.EntrustService;
-import cn.hutool.core.bean.BeanUtil;
+import cn.catguild.utils.BeanUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,7 @@ public class EntrustServiceImpl implements EntrustService {
 	@Override
 	public Mono<String> submit(EntrustSave entrustSave) {
 		Entrust entrust = new Entrust();
-		BeanUtil.copyProperties(entrustSave,entrust);
+		BeanUtil.copy(entrustSave, entrust);
 		return entrustDao.save(entrust).map(Entrust::getId);
 	}
 
@@ -46,7 +46,7 @@ public class EntrustServiceImpl implements EntrustService {
 	@Override
 	public Flux<Entrust> page(EntrustQuery entrustQuery) {
 		Entrust entrust = new Entrust();
-		BeanUtil.copyProperties(entrustQuery,entrust);
+		BeanUtil.copy(entrustQuery, entrust);
 		return entrustDao.findAll(Example.of(entrust));
 	}
 
@@ -59,7 +59,7 @@ public class EntrustServiceImpl implements EntrustService {
 	@Override
 	public Mono<Entrust> detail(EntrustQuery entrustQuery) {
 		Entrust entrust = new Entrust();
-		BeanUtil.copyProperties(entrustQuery,entrust);
+		BeanUtil.copy(entrustQuery, entrust);
 		return entrustDao.findOne(Example.of(entrust));
 	}
 
@@ -72,7 +72,7 @@ public class EntrustServiceImpl implements EntrustService {
 	@Override
 	public Mono<String> update(EntrustSave entrustSave) {
 		Entrust entrust = new Entrust();
-		BeanUtil.copyProperties(entrustSave,entrust);
+		BeanUtil.copy(entrustSave, entrust);
 		return entrustDao.save(entrust).map(Entrust::getId);
 	}
 

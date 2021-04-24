@@ -1,6 +1,5 @@
 package cn.catguild.common.api;
 
-import cn.hutool.core.util.ObjectUtil;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -92,7 +91,7 @@ public class R<T> implements Serializable {
 	 */
 	public static boolean isSuccess(@Nullable R<?> result) {
 		return Optional.ofNullable(result)
-			.map(x -> ObjectUtil.equal(ResultCode.SUCCESS.getCode(), x.code))
+			.map(x -> ResultCode.SUCCESS.getCode() == x.code)
 			.orElse(Boolean.FALSE);
 	}
 

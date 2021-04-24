@@ -1,13 +1,13 @@
 package cn.catguild.utils;
 
-import cn.hutool.core.codec.Base64;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import reactor.core.publisher.Mono;
+import org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -47,13 +47,14 @@ public class JwtUtil {
 	//门泊东吴万里船。
 	private static final String SIGN_KEY = "lghlmcl-yhblsqt-chxlqqx-mbdwwlc-asdjoasjdojsapojd";
 
-	private static final String BASE64_SECURITY = Base64.encode(SIGN_KEY);
+	private static final String BASE64_SECURITY = Base64.encodeBase64String(SIGN_KEY.getBytes(StandardCharsets.UTF_8));
 
 	private static final String BEARER = "bearer";
 
 	public static final Integer AUTH_LENGTH = 7;
 
-	private JwtUtil(){}
+	private JwtUtil() {
+	}
 
 	/**
 	 * 创建令牌
@@ -65,14 +66,14 @@ public class JwtUtil {
 	 */
 	public static String createJWT(Map<String, String> user, String issuer, String audience) {
 		//生成签名密钥
-		byte[] apiKeySecretBytes = Base64.decode(BASE64_SECURITY);
+		byte[] apiKeySecretBytes = Base64.encodeBase64(BASE64_SECURITY.getBytes(StandardCharsets.UTF_8));
 		Key signingKey = new SecretKeySpec(apiKeySecretBytes, SIG_ALG.getJcaName());
 
 		//添加构成JWT的类
 		JwtBuilder builder = Jwts.builder().setHeaderParam("typ", "JWT")
 			.setIssuer(issuer)
 			.setAudience(audience)
-			.signWith(signingKey,SIG_ALG);
+			.signWith(signingKey, SIG_ALG);
 
 		//设置JWT参数
 		user.forEach(builder::claim);
@@ -112,7 +113,7 @@ public class JwtUtil {
 	public static Claims parseJWT(String jsonWebToken) {
 		try {
 			return Jwts.parserBuilder()
-				.setSigningKey(Base64.decode(BASE64_SECURITY))
+				.setSigningKey(Base64.encodeBase64(BASE64_SECURITY.getBytes(StandardCharsets.UTF_8)))
 				.build()
 				.parseClaimsJws(jsonWebToken).getBody();
 		} catch (Exception ex) {

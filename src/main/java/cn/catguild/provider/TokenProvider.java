@@ -2,7 +2,7 @@ package cn.catguild.provider;
 
 import cn.catguild.service.TokenGranter;
 import cn.catguild.service.impl.PasswordGranter;
-import cn.hutool.extra.spring.SpringUtil;
+import cn.catguild.utils.SpringUtil;
 import lombok.AllArgsConstructor;
 import reactor.core.publisher.Mono;
 

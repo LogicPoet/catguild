@@ -3,7 +3,7 @@ package cn.catguild.filter;
 import cn.catguild.common.api.ResponseProvider;
 import cn.catguild.provider.AuthProvider;
 import cn.catguild.utils.JwtUtil;
-import cn.hutool.core.util.StrUtil;
+import cn.catguild.utils.StringUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
@@ -54,11 +54,11 @@ public class AuthFilter implements WebFilter{
 		String paramToken = request.getQueryParams().getFirst(AuthProvider.AUTH_KEY);
 
 		ServerHttpResponse resp = exchange.getResponse();
-		if (StrUtil.isAllBlank(headerToken, paramToken)) {
+		if (StringUtil.isAllBlank(headerToken, paramToken)) {
 			return unAuth(resp, "缺失令牌,鉴权失败");
 		}
 
-		String auth = StrUtil.isBlank(headerToken) ? paramToken : headerToken;
+		String auth = StringUtil.isBlank(headerToken) ? paramToken : headerToken;
 		String token = JwtUtil.getToken(auth);
 		Claims claims = JwtUtil.parseJWT(token);
 		if (claims == null) {

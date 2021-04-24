@@ -2,12 +2,10 @@ package cn.catguild.service.impl;
 
 import cn.catguild.dao.AdventurerDao;
 import cn.catguild.domain.entity.Adventurer;
-import cn.catguild.domain.entity.Entrust;
 import cn.catguild.domain.vo.AdventurerQuery;
 import cn.catguild.domain.vo.AdventurerSave;
-import cn.catguild.domain.vo.EntrustSave;
 import cn.catguild.service.AdventurerService;
-import cn.hutool.core.bean.BeanUtil;
+import cn.catguild.utils.BeanUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
@@ -33,7 +31,7 @@ public class AdventurerServiceImpl implements AdventurerService {
 	@Override
 	public Mono<String> submit(AdventurerSave adventurerSave) {
 		Adventurer adventurer = new Adventurer();
-		BeanUtil.copyProperties(adventurerSave,adventurer);
+		BeanUtil.copy(adventurerSave, adventurer);
 		return adventurerDao.save(adventurer).map(Adventurer::getId);
 	}
 
@@ -46,7 +44,7 @@ public class AdventurerServiceImpl implements AdventurerService {
 	@Override
 	public Flux<Adventurer> page(AdventurerQuery adventurerQuery) {
 		Adventurer adventurer = new Adventurer();
-		BeanUtil.copyProperties(adventurerQuery,adventurer);
+		BeanUtil.copy(adventurerQuery, adventurer);
 		return adventurerDao.findAll(Example.of(adventurer));
 	}
 
@@ -59,7 +57,7 @@ public class AdventurerServiceImpl implements AdventurerService {
 	@Override
 	public Mono<Adventurer> detail(AdventurerQuery adventurerQuery) {
 		Adventurer adventurer = new Adventurer();
-		BeanUtil.copyProperties(adventurerQuery,adventurer);
+		BeanUtil.copy(adventurerQuery, adventurer);
 		return adventurerDao.findOne(Example.of(adventurer));
 	}
 
@@ -72,7 +70,7 @@ public class AdventurerServiceImpl implements AdventurerService {
 	@Override
 	public Mono<String> update(AdventurerSave adventurerSave) {
 		Adventurer adventurer = new Adventurer();
-		BeanUtil.copyProperties(adventurerSave,adventurer);
+		BeanUtil.copy(adventurerSave, adventurer);
 		return adventurerDao.save(adventurer).map(Adventurer::getId);
 	}
 }

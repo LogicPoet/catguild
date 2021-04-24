@@ -48,7 +48,7 @@
     <logger name="org.springframework.cache" level="INFO"/>
 
     <!-- mongodb查询日志 -->
-    <Logger name="org.springframework.data" level="DEBUG" />
+<!--    <Logger name="org.springframework.data" level="DEBUG" />-->
     <!-- 业务日志 -->
     <Logger name="cn.catguild" level="DEBUG" />
 

@@ -1,7 +1,8 @@
+
 spring:
   data:
     mongodb:
-      host: localhost
+      host: 192.168.134.132
       port: 27017
       database: catguild_db
 logging:
@@ -9,4 +10,5 @@ logging:
 #  level:
 #    org.springframework.data: debug
 #    cn.catguild: debug
-
+server:
+  port: 20000

@@ -15,6 +15,7 @@ public interface TokenGranter {
 	/**
 	 * 获取token
 	 *
+	 * @param parameter 参数
 	 * @return jwt 令牌
 	 */
 	Mono<String> getToken(Map<String,String> parameter);
