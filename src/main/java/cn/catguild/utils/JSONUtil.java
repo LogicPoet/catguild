@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Chill
  */
 @Slf4j
-class JsonUtil {
+public class JSONUtil {
 
 	/**
 	 * 将对象序列化成json字符串

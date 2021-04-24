@@ -4,7 +4,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
@@ -47,7 +46,7 @@ public class JwtUtil {
 	//门泊东吴万里船。
 	private static final String SIGN_KEY = "lghlmcl-yhblsqt-chxlqqx-mbdwwlc-asdjoasjdojsapojd";
 
-	private static final String BASE64_SECURITY = Base64.encodeBase64String(SIGN_KEY.getBytes(StandardCharsets.UTF_8));
+	private static final String BASE64_SECURITY = Base64Util.encode(SIGN_KEY);
 
 	private static final String BEARER = "bearer";
 
@@ -66,7 +65,7 @@ public class JwtUtil {
 	 */
 	public static String createJWT(Map<String, String> user, String issuer, String audience) {
 		//生成签名密钥
-		byte[] apiKeySecretBytes = Base64.encodeBase64(BASE64_SECURITY.getBytes(StandardCharsets.UTF_8));
+		byte[] apiKeySecretBytes = Base64Util.encode(BASE64_SECURITY.getBytes(StandardCharsets.UTF_8));
 		Key signingKey = new SecretKeySpec(apiKeySecretBytes, SIG_ALG.getJcaName());
 
 		//添加构成JWT的类
@@ -113,7 +112,7 @@ public class JwtUtil {
 	public static Claims parseJWT(String jsonWebToken) {
 		try {
 			return Jwts.parserBuilder()
-				.setSigningKey(Base64.encodeBase64(BASE64_SECURITY.getBytes(StandardCharsets.UTF_8)))
+				.setSigningKey(Base64Util.encode(BASE64_SECURITY.getBytes(StandardCharsets.UTF_8)))
 				.build()
 				.parseClaimsJws(jsonWebToken).getBody();
 		} catch (Exception ex) {

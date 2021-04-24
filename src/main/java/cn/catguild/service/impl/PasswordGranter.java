@@ -1,12 +1,12 @@
 package cn.catguild.service.impl;
 
-import cn.catguild.dao.StaffDao;
 import cn.catguild.domain.entity.Staff;
 import cn.catguild.exception.AuthException;
+import cn.catguild.mapper.StaffMapper;
 import cn.catguild.service.TokenGranter;
 import cn.catguild.utils.JwtUtil;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
@@ -21,7 +21,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class PasswordGranter implements TokenGranter {
 
-	StaffDao staffDao;
+	private final StaffMapper staffMapper;
 
 	/**
 	 * 获取token
@@ -39,10 +39,10 @@ public class PasswordGranter implements TokenGranter {
 		//}
 
 		// 验证用户是否合法
-		Staff staff = new Staff();
-		staff.setJobNumber(parameter.get("username"));
-		staff.setPassword(parameter.get("password"));
-		Mono<Staff> one = staffDao.findOne(Example.of(staff));
+		Mono<Staff> one = Mono.justOrEmpty(staffMapper.selectOne(Wrappers.<Staff>lambdaQuery()
+			.eq(Staff::getJobNumber, parameter.get("username"))
+			.eq(Staff::getPassword, parameter.get("password"))
+			.last("limit 1")));
 		return one.map(s -> {
 			Map<String, String> param = new HashMap<>(2);
 			param.put("name", s.getName());

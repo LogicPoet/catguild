@@ -1,7 +1,6 @@
 package cn.catguild.utils;
 
 import org.springframework.lang.Nullable;
-import org.springframework.util.StringUtils;
 
 /**
  * <p>
@@ -16,22 +15,7 @@ import org.springframework.util.StringUtils;
  * @copyright Copyright (c) 2021
  * @modified zhi.liu
  */
-public class StringUtil extends StringUtils {
-
-	/**
-	 * 判断字符串是否为空
-	 * <p>
-	 * StringUtil.isBlank(null) = false
-	 * StringUtil.isBlank("") = false
-	 * StringUtil.isBlank(" ") = true
-	 * StringUtil.isBlank("Hello") = true
-	 *
-	 * @param str 字符串
-	 * @return 既不是 null 也不是 “” 返回true
-	 */
-	public static boolean isBlank(@Nullable String str) {
-		return hasLength(str);
-	}
+public class StringUtil extends org.springframework.util.StringUtils {
 
 	/**
 	 * 判断字符串是否为空
@@ -51,37 +35,26 @@ public class StringUtil extends StringUtils {
 	/**
 	 * 判断输入字符是否都不为空
 	 *
-	 * @param str 字符串
+	 * @param str1 字符串1
+	 * @param str2 字符串2
 	 * @return
 	 */
-	public static boolean isAllBlank(@Nullable String... str) {
-		if (null == str) {
-			return false;
-		}
-		for (int i = 0; i < str.length; i++) {
-			if (!isBlank(str[i])) {
-				return false;
-			}
-		}
-		return true;
+	public static boolean isAllBlank(@Nullable CharSequence str1, @Nullable CharSequence str2) {
+		return isBlank(str1) && isBlank(str2);
 	}
 
 	/**
 	 * 判断输入字符是否都不为空
 	 *
-	 * @param str 字符串
+	 * @param str1 字符串1
+	 * @param str2 字符串2
+	 * @param str3 字符串3
 	 * @return
 	 */
-	public static boolean isAllBlank(@Nullable CharSequence... str) {
-		if (null == str) {
-			return false;
-		}
-		for (int i = 0; i < str.length; i++) {
-			if (!isBlank(str[i])) {
-				return false;
-			}
-		}
-		return true;
+	public static boolean isAllBlank(@Nullable CharSequence str1,
+									 @Nullable CharSequence str2,
+									 @Nullable CharSequence str3) {
+		return isBlank(str1) && isBlank(str2) && isBlank(str3);
 	}
 
 }
