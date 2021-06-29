@@ -1,8 +1,10 @@
 package cn.catguild.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.MybatisMapWrapperFactory;
-import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.annotation.MapperScan;
@@ -102,10 +104,23 @@ public class PostgreConfig {
 		sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver()
 			.getResources(MAPPER_LOCATION));
 		// 开启分页拦截器
-		sessionFactory.setPlugins(new PaginationInterceptor());
+		sessionFactory.setPlugins(mybatisPlusInterceptor());
 		// 开启map结果集下划线转驼峰
 		sessionFactory.setObjectWrapperFactory(new MybatisMapWrapperFactory());
 		return sessionFactory.getObject();
+	}
+
+	/**
+	 * 新的分页插件,一缓和二缓遵循mybatis的规则,
+	 * 需要设置 MybatisConfiguration#useDeprecatedExecutor = false
+	 * 避免缓存出现问题(该属性会在旧插件移除后一同移除)
+	 */
+	@Bean
+	public MybatisPlusInterceptor mybatisPlusInterceptor() {
+		MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+		// 分页插件
+		interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.POSTGRE_SQL));
+		return interceptor;
 	}
 
 }

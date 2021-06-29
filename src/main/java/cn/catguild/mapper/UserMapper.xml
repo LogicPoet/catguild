@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.catguild.mapper.UserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="userResultMap" type="cn.catguild.domain.entity.User">
+        <id column="id" property="id"/>
+        <result column="crate_user" property="crateUser"/>
+        <result column="crate_timestamp" property="crateTimestamp"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_timestamp" property="updateTimestamp"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="real_name" property="realName"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
+    </resultMap>
+
+</mapper>

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Map;
+
 /**
  * <p>
  * json工具类 依赖于jackson
@@ -40,6 +42,18 @@ public class JSONUtil {
 			log.error(e.getMessage(), e);
 		}
 		return null;
+	}
+
+	/**
+	 * map转对象
+	 *
+	 * @param fromValue   map集合
+	 * @param toValueType 目标对象class
+	 * @param <T>         泛型
+	 * @return 转化的对象
+	 */
+	public static <T> T toPojo(Map fromValue, Class<T> toValueType) {
+		return getInstance().convertValue(fromValue, toValueType);
 	}
 
 	public static ObjectMapper getInstance() {

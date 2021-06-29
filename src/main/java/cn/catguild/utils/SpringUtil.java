@@ -1,7 +1,5 @@
 package cn.catguild.utils;
 
-import cn.catguild.service.TokenGranter;
-
 /**
  * <p>
  * spring工具
@@ -16,9 +14,5 @@ import cn.catguild.service.TokenGranter;
  * @modified zhi.liu
  */
 public class SpringUtil {
-
-	public static TokenGranter getBean(Class<?> classType) {
-		return null;
-	}
 
 }
