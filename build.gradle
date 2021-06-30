@@ -23,18 +23,12 @@ repositories {
 
 dependencies {
     // spring 家族
-    implementation 'org.springframework.boot:spring-boot-starter-webflux'
-
     // 持久层
-
-
     // 第三方 工具包
 //    implementation 'com.google.guava:guava:30.1.1-jre'
-
     // 其他 处理报错 的依赖
 //    implementation 'io.springfox:springfox-boot-starter:version:3.0.0'
 //    implementation 'com.google.code.findbugs:annotations:version:3.0.1'
-
     // 测试框架
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
