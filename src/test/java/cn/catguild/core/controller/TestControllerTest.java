@@ -3,9 +3,8 @@ package cn.catguild.core.controller;
 import cn.catguild.ApplicationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import reactor.core.publisher.Mono;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TestControllerTest extends ApplicationTest {
 
@@ -14,8 +13,7 @@ class TestControllerTest extends ApplicationTest {
 
     @Test
     void firstTest() {
-		Mono<String> stringMono = controller.firstTest();
-		String block = stringMono.block();
-		assertEquals("web容器启动成功！！！", block);
+		String stringMono = controller.firstTest();
+		assertEquals("web容器启动成功！！！", stringMono);
 	}
 }

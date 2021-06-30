@@ -2,7 +2,6 @@ package cn.catguild;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.reactive.config.EnableWebFlux;
 
 /**
  * <p>
@@ -17,7 +16,6 @@ import org.springframework.web.reactive.config.EnableWebFlux;
  * @copyright Copyright (c) 2020
  * @modified zhi.liu
  */
-@EnableWebFlux
 @SpringBootApplication
 public class Application {
     public static void main(String[] args) {

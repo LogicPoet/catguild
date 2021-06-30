@@ -3,7 +3,6 @@ package cn.catguild.core.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
 
 /**
  * @author zhi.liu
@@ -14,8 +13,8 @@ import reactor.core.publisher.Mono;
 public class TestController {
 
 	@GetMapping
-	public Mono<String> firstTest(){
-		return Mono.just("web容器启动成功！！！");
+	public String firstTest() {
+		return "web容器启动成功！！！";
 	}
 
 }
