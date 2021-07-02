@@ -40,7 +40,7 @@ public class CodeGenerator {
 	/**
 	 * 需要生成的表名(两者只能取其一)
 	 */
-	public static String[] INCLUDE_TABLES = {"cat_user", "cat_task", "cat_user_task"};
+	public static String[] INCLUDE_TABLES = {"cat_user", "cat_delegation", "cat_user_delegation"};
 	/**
 	 * 需要排除的表名(两者只能取其一)
 	 */
@@ -54,7 +54,7 @@ public class CodeGenerator {
 	 * 基础业务字段
 	 */
 	public static String[] SUPER_ENTITY_COLUMNS = {
-		"crate_user", "crate_timestamp", "update_user", "update_timestamp", "is_deleted"};
+		"status", "create_user", "create_time", "update_user", "update_time", "is_deleted", "version"};
 
 	/**
 	 * 逻辑删除字段
@@ -78,9 +78,9 @@ public class CodeGenerator {
 		generator.setHasSuperEntity(HAS_SUPER_ENTITY);
 		generator.setSuperEntityColumns(SUPER_ENTITY_COLUMNS);
 		generator.setLogicDeleteFieldName(LOGIC_DELETE_FIELD_NAME);
-		generator.setUrl("jdbc:postgresql://192.168.134.132:5432/catguild");
-		generator.setUsername("postgres");
-		generator.setDriverName("org.postgresql.Driver");
+		generator.setUrl("jdbc:mysql://192.168.42.128:3306/catguild?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=GMT%2B8");
+		generator.setUsername("root");
+		generator.setDriverName("com.mysql.cj.jdbc.Driver");
 		generator.setPassword("123456");
 
 		//generator.setUrl("jdbc:mysql://127.0.0.1:3306/cat_dev?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=GMT%2B8");

@@ -14,16 +14,20 @@ server:
 spring:
   #数据源配置
   datasource:
+    # 自动执行sql
     schema:
       - classpath:sql/schema-mysql.sql
     sql-script-encoding: utf-8
     platform: mysql
     initialization-mode: always
+
     druid:
       # JDBC 配置
-      url: jdbc:mysql://192.168.134.138:3306/catguild
+      # url: jdbc:mysql://192.168.134.138:3306/catguild?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=GMT%2B8
+      url: jdbc:p6spy:mysql://192.168.42.128:3306/catguild?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=GMT%2B8
       username: root
       password: 123456
+      driver-class-name: com.p6spy.engine.spy.P6SpyDriver
       # 连接池配置
       # 监控配置
       initial-size: 1  # 初始化大小
@@ -43,6 +47,16 @@ spring:
       phy-max-use-count: 500
 
       filters: stat  # 配置监控统计拦截的filters
+
+# mybatis-plus的配置
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: is_deleted  # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+      logic-delete-value: UNIX_TIMESTAMP() # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+  # 配置通用枚举扫描
+  typeEnumsPackage: cn.catguild.core.domain.enums # 支持统配符 * 或者 ; 分割
 
 
 # 日志配置
