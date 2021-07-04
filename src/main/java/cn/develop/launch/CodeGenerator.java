@@ -54,7 +54,7 @@ public class CodeGenerator {
 	 * 基础业务字段
 	 */
 	public static String[] SUPER_ENTITY_COLUMNS = {
-		"status", "create_user", "create_time", "update_user", "update_time", "is_deleted", "version"};
+		"status", "create_user", "create_time", "update_user", "update_time", "is_deleted", "version", "deleted_time"};
 
 	/**
 	 * 逻辑删除字段
@@ -78,7 +78,7 @@ public class CodeGenerator {
 		generator.setHasSuperEntity(HAS_SUPER_ENTITY);
 		generator.setSuperEntityColumns(SUPER_ENTITY_COLUMNS);
 		generator.setLogicDeleteFieldName(LOGIC_DELETE_FIELD_NAME);
-		generator.setUrl("jdbc:mysql://192.168.42.128:3306/catguild?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=GMT%2B8");
+		generator.setUrl("jdbc:mysql://192.168.134.138:3306/catguild?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=GMT%2B8");
 		generator.setUsername("root");
 		generator.setDriverName("com.mysql.cj.jdbc.Driver");
 		generator.setPassword("123456");

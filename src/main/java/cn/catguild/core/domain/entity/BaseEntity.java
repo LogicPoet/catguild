@@ -13,7 +13,11 @@ import lombok.Data;
  */
 @Data
 public class BaseEntity {
-
+	/**
+	 * 状态
+	 */
+	@ApiModelProperty(value = "状态")
+	private Integer status;
 	/**
 	 * 创建日期
 	 */

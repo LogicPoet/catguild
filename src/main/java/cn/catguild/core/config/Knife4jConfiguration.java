@@ -24,15 +24,15 @@ public class Knife4jConfiguration {
 			.apiInfo(new ApiInfoBuilder()
 				//.title("swagger-bootstrap-ui-demo RESTful APIs")
 				.description("# swagger-bootstrap-ui-demo RESTful APIs")
-				.termsOfServiceUrl("http://www.xx.com/")
-				.contact(new Contact("","",""))
+				.termsOfServiceUrl("http://localhost:20000/")
+				.contact(new Contact("kiro", "", "xx@gmail.com"))
 				.version("1.0")
 				.build())
 			//分组名称
-			.groupName("2.X版本")
+			.groupName("1.0版本")
 			.select()
 			//这里指定Controller扫描包路径
-			.apis(RequestHandlerSelectors.basePackage("com.github.xiaoymin.knife4j.controller"))
+			.apis(RequestHandlerSelectors.basePackage("cn.catguild.core.controller"))
 			.paths(PathSelectors.any())
 			.build();
 		return docket;

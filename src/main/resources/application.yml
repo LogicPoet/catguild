@@ -18,13 +18,14 @@ spring:
     schema:
       - classpath:sql/schema-mysql.sql
     sql-script-encoding: utf-8
+    separator: $$
     platform: mysql
     initialization-mode: always
 
     druid:
       # JDBC 配置
-      # url: jdbc:mysql://192.168.134.138:3306/catguild?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=GMT%2B8
-      url: jdbc:p6spy:mysql://192.168.42.128:3306/catguild?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=GMT%2B8
+      url: jdbc:p6spy:mysql://192.168.134.139:3306/catguild?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=GMT%2B8
+      # url: jdbc:p6spy:mysql://192.168.42.128:3306/catguild?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=GMT%2B8
       username: root
       password: 123456
       driver-class-name: com.p6spy.engine.spy.P6SpyDriver
